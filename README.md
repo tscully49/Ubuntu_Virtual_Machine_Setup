@@ -3,6 +3,6 @@ This is a bash script to set up an Ubuntu machine for the Web2 class with fail2b
 
 
 # Instructions
-1) Clone the repository into your root directory (or anywhere) in your virtual machine.  
-2) Once the shell script is in your virtual machine, run `chmod a+x (test.sh)`
-3) Run `./test.sh` and all should run correctly
+1. Clone the repository into your root directory (or anywhere) in your virtual machine.  
+2. Once the shell script is in your virtual machine, run `chmod a+x (test.sh)`
+3. Run `./test.sh` and all should run correctly
