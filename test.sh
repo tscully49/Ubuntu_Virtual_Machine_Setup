@@ -19,10 +19,37 @@ sudo npm install -g azure-cli
 
 # Login to the azure cli with the username and password given earlier
 azure login -p "$password" "$username"
+while [ $? -ne 0 ]; do
+	IFS="\n"
+	echo "Error: Invalid Username/Password Combination..."
+	echo ""
+	echo "Please re-enter Username/Password OR enter -1 to skip setting up your HTTP endpoint"
+	read -p "Enter the username for azure account access : " username
+	if [[ "$username" == "-1" ]]; then
+		echo ""
+		echo "Cancelled the enpoint set up through Microsoft Azure!"
+		echo "Your HTTP Endpoint was not set up."
+		echo ""
+		break
+	fi
+	read -s -p "Enter password for azure account access : " password
+	if [[ "$password" == "-1" ]]; then
+		echo ""
+		echo "Cancelled the enpoint set up through Microsoft Azure!"
+		echo "Your HTTP Endpoint was not set up."
+		echo ""
+		break
+	fi
+	echo ""
+	unset IFS
+	azure login -p "$password" "$username"
+done
 
-# Set up the HTTP endpoint without having to go to the portal online
-azure vm endpoint create -n HTTP $HOSTNAME 80 80 #$HOSTNAME is the name of your virtual machine
-azure vm endpoint list $HOSTNAME
+if [[ "$username" != "-1" ]]; then
+	# Set up the HTTP endpoint without having to go to the portal online
+	azure vm endpoint create -n HTTP $HOSTNAME 80 80 #$HOSTNAME is the name of your virtual machine
+	azure vm endpoint list $HOSTNAME
+fi
 
 echo ""
 echo "----------------------------------------------------------------------"
