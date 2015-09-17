@@ -45,7 +45,7 @@ while [ $? -ne 0 ]; do
 	azure login -p "$password" "$username"
 done
 
-if [[ "$username" != "-1" ]]; then
+if [[ "$username" != "-1" && "$password" != "-1" ]]; then
 	# Set up the HTTP endpoint without having to go to the portal online
 	azure vm endpoint create -n HTTP $HOSTNAME 80 80 #$HOSTNAME is the name of your virtual machine
 	azure vm endpoint list $HOSTNAME
